@@ -1,6 +1,8 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
   const [showStory, setShowStory] = useState(false);
@@ -10,14 +12,16 @@ export default function App() {
   const [animal, setAnimal] = useState('');
   const [joke, setJoke] = useState('');
 
-  const story = `A priest, a rabbi, and a minister walk into a ${place}. They see ${name} eating a ${food}. Suddenly, a ${animal} says, "${joke}"`;
-
+  const story = () => {
+    return `A priest, a rabbi, and a minister walk into a ${place}. They see ${name} eating a ${food}. Suddenly, a ${animal} says, "${joke}"`;
+  const App = () => {
+  const navigation = useNavigation();
+  }    
+  }
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>
-        Once upon a time, There was a funny story.
-        
-ST10476285
+        Once upon a time, There was a funny story. ST10476285
       </Text>
       <Image
         source={require('./assets/A_priest,_a_rabbi,_a_minister_and_a_duck_walk_into_a_bar.jpg')}
@@ -53,19 +57,13 @@ ST10476285
         value={joke}
         onChangeText={(text) => setJoke(text)}
       />
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#007bff',
-          padding: 10,
-          borderRadius: 5,
-        }}
-        onPress={() => setShowStory(!showStory)}
-      >
-        <Text style={{ color: '#fff' }}>{showStory ? 'Hide Story' : 'Read Story'}</Text>
-      </TouchableOpacity>
-      {showStory && (
-        <Text style={{ marginTop: 20, fontSize: 16 }}>{story}</Text>
-      )}
+     <TouchableOpacity
+      style={{ backgroundColor: '#007bff', padding: 10, borderRadius: 5 }}
+      onPress={() => navigation.navigate('Story')}
+    >
+      <Text style={{ color: '#fff' }}>Read Story</Text>
+    </TouchableOpacity>
+
       <StatusBar style="auto" />
     </View>
   );
